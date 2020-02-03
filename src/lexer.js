@@ -1,8 +1,7 @@
 function lexer(src = '') {
   let pointer = 0
   let firstCall = true
-  let length = src.length
-  let output = []
+  const length = src.length
   let current = readToken()
   let next = readToken()
 
@@ -21,7 +20,7 @@ function lexer(src = '') {
   }
 
   function isDigit(codePoint) {
-    if ((codePoint > 47 && codePoint < 58) || codePoint == 46) {
+    if ((codePoint > 47 && codePoint < 58) || codePoint === 46) {
       return true
     } else {
       return false
@@ -47,10 +46,9 @@ function lexer(src = '') {
       firstCall = false
       return startToken()
     }
-    let token
+
     do {
-      let code = src.charCodeAt(pointer)
-      switch (code) {
+      switch (src.charCodeAt(pointer)) {
         case 32:
           skip()
           break
@@ -60,7 +58,6 @@ function lexer(src = '') {
         case 49:
         case 50:
         case 51:
-        case 52:
         case 52:
         case 53:
         case 54:
@@ -74,7 +71,7 @@ function lexer(src = '') {
   }
 
   function readNumbers() {
-    let digits = []
+    const digits = []
     let codePoint = src.charCodeAt(pointer)
     while (pointer <= length && isDigit(codePoint)) {
       digits.push(src.charAt(pointer))

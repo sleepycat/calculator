@@ -4,19 +4,19 @@ describe('lexer', () => {})
 
 describe('lexer', () => {
   it('returns a set of functions to manipulate closured state', () => {
-    const { advance, currentToken, lookAhead } = lexer('111')
+    const { advance, currentToken } = lexer('111')
     // advance past the start token
     advance()
-    let second = currentToken()
+    const second = currentToken()
     expect(second).toEqual({ type: 'number', value: '111' })
   })
 
   it('consumes the entire string', () => {
-    const { advance, currentToken, lookAhead } = lexer('111 222')
-    let first = currentToken()
-    let second = advance()
-    let third = advance()
-    let fourth = advance()
+    const { advance, currentToken } = lexer('111 222')
+    const first = currentToken()
+    const second = advance()
+    const third = advance()
+    const fourth = advance()
     expect(first).toEqual({ type: 'start' })
     expect(second).toEqual({ type: 'number', value: '111' })
     expect(third).toEqual({ type: 'number', value: '222' })
@@ -34,7 +34,7 @@ describe('lexer', () => {
 
   describe('lookAhead', () => {
     it('returns first token after the start token', () => {
-      const { currentToken, lookAhead } = lexer('12')
+      const { lookAhead } = lexer('12')
       expect(lookAhead()).toEqual({ type: 'number', value: '12' })
     })
 

@@ -1,7 +1,7 @@
 const { lexer } = require('./lexer')
 
-function parseNumber({ currentToken, lookAhead, advance }) {
-  let node = {
+function parseNumber({ currentToken, advance }) {
+  const node = {
     kind: 'number',
     value: currentToken().value,
   }
@@ -10,12 +10,12 @@ function parseNumber({ currentToken, lookAhead, advance }) {
 }
 module.exports.parseNumber = parseNumber
 
-function parseAddition({ currentToken, lookAhead, advance }) {
-  let augend = currentToken()
+function parseAddition({ currentToken, advance }) {
+  const augend = currentToken()
   // advance past the addtion token to get the number on the other side
   advance()
-  let addend = advance()
-  let node = {
+  const addend = advance()
+  const node = {
     kind: 'addition',
     children: [augend, addend],
   }
@@ -24,7 +24,6 @@ function parseAddition({ currentToken, lookAhead, advance }) {
 module.exports.parseAddition = parseAddition
 
 function parseExpression({ currentToken, lookAhead, advance }) {
-  console.log(currentToken())
   switch (currentToken().type) {
     case 'number':
       if (lookAhead().type === 'addition') {
